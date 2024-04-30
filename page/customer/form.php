@@ -183,6 +183,8 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
         formData[item.name] = item.value;
       });
 
+      // get value from checkbox
+
       formData["paket_inap"] = $("input[type='checkbox']")[0].checked;
       formData["paket_transport"] = $("input[type='checkbox']")[1].checked;
       formData["paket_makan"] = $("input[type='checkbox']")[2].checked;

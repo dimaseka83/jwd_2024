@@ -15,13 +15,13 @@ $form = new formController($db);
 
 $requestMethod = $_SERVER["REQUEST_METHOD"];
 
+// Switch case to determine the request method and call the corresponding method
 switch ($requestMethod) {
     case 'GET':
         $getPemesanan = $form->getAll();
         break;
 
     case 'POST':
-        // get all $_POST data
         $data = json_decode(file_get_contents("php://input"));
         $form->insertData($data);
         break;

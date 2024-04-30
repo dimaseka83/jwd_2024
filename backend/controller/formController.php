@@ -10,6 +10,7 @@ class formController {
         $this->con = $db;
     }
 
+    // function to get all data from tb_pemesanan
     public function getAll()
     {
         try {
@@ -35,6 +36,7 @@ class formController {
         }
     }
 
+    // function to insert or Update data by id from tb_pemesanan
     public function insertData($post) {
         try {
             $post = (array) $post;
@@ -71,6 +73,7 @@ class formController {
         }
     }
 
+    // function to delete data by id from tb_pemesanan
     public function deleteData($id) {
         try {
             $sql = "DELETE FROM tb_pemesanan WHERE id='$id'";

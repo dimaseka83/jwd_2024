@@ -15,13 +15,13 @@ $wisata = new wisataController($db);
 
 $requestMethod = $_SERVER["REQUEST_METHOD"];
 
+// Switch case to determine the request method and call the corresponding method
 switch ($requestMethod) {
     case 'GET':
         $getWisata = $wisata->getAll();
         break;
 
     case 'POST':
-        // get all $_POST data
         $nama = $_POST['nama'];
         $link = $_POST['link'];
         $img = $_FILES['img'] ?? $_POST['img'];
@@ -33,7 +33,7 @@ switch ($requestMethod) {
             'img' => $img
         );
 
-        // insert data
+        // insert or update data
         if (isset($_GET['id'])) {
             $data['id'] = $_GET['id'];
             $updateWisata = $wisata->updateData($data);

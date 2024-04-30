@@ -51,7 +51,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 
     <div class="container mt-5">
         <h1 class="display-6">Daftar Pariwisata Banyuwangi</h1>
-        <button class="btn btn-primary" onclick="tambahData()">Tambah</button>
+        <button class="btn btn-primary" onclick="addData()">Tambah</button>
         <table class="table tableGambar">
             <thead>
                 <tr>
@@ -99,13 +99,14 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="simpan()">Simpan</button>
+                    <button type="button" class="btn btn-primary simpanData">Simpan</button>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
+        // variable
         let allDataWisata = [];
         let wisataSelected = null;
 
@@ -134,61 +135,51 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
             });
         });
 
-        const tambahData = () => {
+        // function tambah data
+
+        const addData = () => {
             // show modal
             $('#staticBackdrop').modal('show');
             wisataSelected = null;
             $('.wisata')[0].reset();
         }
 
+        // function simpan data
 
-        const insertData = (data) => {
-            let formData = new FormData();
+
+        const insertData = () => {
+
+        }
+
+        $('.simpanData').click(function() {
+            const cekNotEmpty = $('input[name=nama]').val() && $('input[name=link]').val() && $('input[name=img]').val();
+            if (!cekNotEmpty) {
+                Swal.fire("Data tidak boleh kosong!", "", "error");
+                return;
+            }
+
+            let formData = new FormData($('.wisata')[0]);
             formData.append('nama', $('input[name=nama]').val());
             formData.append('link', $('input[name=link]').val());
             formData.append('img', $('input[name=img]')[0].files[0]);
+
             $.ajax({
                 url: "/jwd/backend/wisata.php",
                 type: 'POST',
                 data: formData,
+                contentType: false,
+                processData: false,
                 success: function(response) {
                     Swal.fire("Data berhasil disimpan!", "", "success");
-                    $('#staticBackdrop').modal('hide');
-                    $('.tableGambar tbody').html('');
                     window.location.reload();
                 }
             });
-        }
-
-        const updateData = (data) => {
-            let formData = new FormData();
-            formData.append('nama', $('input[name=nama]').val());
-            formData.append('link', $('input[name=link]').val());
-            formData.append('img', $('input[name=img]')[0].files[0]);
-            $.ajax({
-                url: "/jwd/backend/wisata.php?id=" + wisataSelected.id,
-                type: 'POST',
-                data: formData,
-                success: function(response) {
-                    Swal.fire("Data berhasil diupdate!", "", "success");
-                    $('#staticBackdrop').modal('hide');
-                    $('.tableGambar tbody').html('');
-                    window.location.reload();
-                }
-            });
-        }
-
-        const simpan = () => {
-            // Now formData contains all form data, including multiple images
-            if (wisataSelected) {
-                updateData();
-            } else {
-                insertData();
-            }
-
-        }
+        });
 
 
+
+
+        // function edit data and show modal
         const editData = (id) => {
             const index = allDataWisata.findIndex(item => item.id == id);
             wisataSelected = allDataWisata[index];
@@ -201,6 +192,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 
         }
 
+        // function delete data from database
         const deleteData = (id) => {
             Swal.fire({
                 title: 'Apakah anda yakin?',
@@ -217,7 +209,6 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
                         type: 'DELETE',
                         success: function(response) {
                             Swal.fire("Data berhasil dihapus!", "", "success");
-                            $('.tableGambar tbody').html('');
                             window.location.reload();
                         }
                     });

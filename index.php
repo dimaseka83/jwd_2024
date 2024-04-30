@@ -2,9 +2,12 @@
 session_start();
 include_once('./backend/koneksi.php');
 
+// create new database object
 $database = new Database();
 $db = $database->getConnection();
 
+
+// check if form is submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];

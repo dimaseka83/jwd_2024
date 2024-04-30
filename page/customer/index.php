@@ -47,6 +47,7 @@ if ($_SESSION['role'] != 'customer') {
   <div class="row container mt-5 dataPariwisataBanyuwangi"></div>
 
   <script>
+    // get data from backend
     $(document).ready(function() {
       $.ajax({
         type: "GET",

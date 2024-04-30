@@ -8,6 +8,7 @@ class wisataController
         $this->con = $db;
     }
 
+    // function to get data by id from tb_wisata
     public function getAll()
     {
         try {
@@ -31,6 +32,7 @@ class wisataController
         }
     }
 
+    // function to get data from tb_wisata
     public function insertData($post_json)
     {
         try {
@@ -67,6 +69,7 @@ class wisataController
         }
     }
 
+    // function to update data by id from tb_wisata
     public function updateData($put_json)
     {
         try {
@@ -130,6 +133,7 @@ class wisataController
         }
     }
 
+    // function to delete data by id from tb_wisata
     public function deleteData($id)
     {
         try {
@@ -160,7 +164,7 @@ class wisataController
         }
     }
 
-
+    // function to insert image
     public function insertImg($img)
     {
         // move the uploaded image to the folder
