@@ -11,7 +11,17 @@ ob_start();
     </div>
 </div>
 
-<div class="row container mt-5 dataPariwisataBanyuwangi"></div>
+<div class="row my-5">
+    <div class="col-md-8 col-xs-12">
+        <div class="row mt-5 mx-5 dataPariwisataBanyuwangi"></div>
+    </div>
+    <div id="iframeContainer" class="col-md-4 mt-5 col-xs-12">
+        <iframe width="80%" height="25%" src="https://www.youtube.com/embed/h4jSA8i9UUA?si=8J6ZOsn0cGh7q5LE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <iframe width="80%" height="25%" src="https://www.youtube.com/embed/xuhLZcnHN1E?si=-CLINNwMnkdifqIE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+</div>
+
+</div>
 
 <script>
     //  fetches data from a backend endpoint asynchronously using AJAX, 
@@ -28,7 +38,7 @@ ob_start();
                     data.forEach(pariwisata => {
                         html += `
             <div class="col-md-4 d-flex align-items-stretch">
-              <div class="card flex-grow-1 m-2" style="width: 18rem;">
+              <div class="card flex-grow-1 m-2">
                 <img src="/jwd/backend/assets/img/${pariwisata?.img}" class="card-img-top" alt="${pariwisata?.nama}" />
                 <div class="card-body">
                   <h5 class="card-title">${pariwisata?.nama}</h5>
@@ -46,6 +56,24 @@ ob_start();
             }
         });
     });
+
+    // Function to check if the device is a phone
+    function isPhone() {
+        return window.matchMedia("(max-width: 575.98px)").matches;
+    }
+
+    // Function to add the class d-flex justify-content-center if it's a phone
+    function addFlexCenterClass() {
+        var iframeContainer = document.getElementById('iframeContainer');
+        if (isPhone()) {
+            iframeContainer.classList.add('d-flex', 'justify-content-center');
+        }
+    }
+
+    // Call the function when the page loads
+    window.onload = function() {
+        addFlexCenterClass();
+    };
 </script>
 
 <style>
@@ -55,6 +83,13 @@ ob_start();
     .card:hover {
         transform: scale(1.05);
         transition: transform 0.5s;
+    }
+
+    /* change media query card for desktop */
+    @media (min-width: 768px) {
+        .card {
+            width: 500px;
+        }
     }
 </style>
 
