@@ -24,16 +24,18 @@ switch ($requestMethod) {
     case 'POST':
         $nama = $_POST['nama'];
         $link = $_POST['link'];
-        $img = $_FILES['img'] ?? $_POST['img'];
+        $img = $_FILES['img'];
+        $imgEdited = $_FILES['img']['name'] ? 'edited' : 'not edited';
 
         // create an array to store all data
         $data = array(
             'nama' => $nama,
             'link' => $link,
-            'img' => $img
+            'img' => $img,
+            'imgEdited' => $imgEdited
         );
 
-        // insert or update data
+        // // insert or update data
         if (isset($_GET['id'])) {
             $data['id'] = $_GET['id'];
             $updateWisata = $wisata->updateData($data);

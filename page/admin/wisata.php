@@ -167,7 +167,14 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 
             formData.append('nama', $('input[name=nama]').val());
             formData.append('link', $('input[name=link]').val());
-            // formData.append('img', $('input[name=img]')[0].files[0]);
+            // cek apakah ada file yang diupload
+            if ($('input[name=img]')[0].files.length > 0) {
+                formData.append('img', $('input[name=img]')[0].files[0]);
+                console.log('ada file');
+            } else {
+                formData.append('img', wisataSelected.img);
+                console.log('tidak ada file');
+            }
 
             $.ajax({
                 url: wisataSelected ? "/jwd/backend/wisata.php?id=" + wisataSelected.id : "/jwd/backend/wisata.php",
@@ -177,7 +184,9 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
                 processData: false,
                 success: function(response) {
                     Swal.fire("Data berhasil disimpan!", "", "success");
-                    window.location.reload();
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000);
                 }
             });
         });
@@ -210,7 +219,9 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
                         type: 'DELETE',
                         success: function(response) {
                             Swal.fire("Data berhasil dihapus!", "", "success");
-                            window.location.reload();
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 1000);
                         }
                     });
                 }

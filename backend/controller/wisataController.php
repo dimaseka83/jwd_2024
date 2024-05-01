@@ -81,10 +81,27 @@ class wisataController
             $nama = $data['nama'];
             $link = $data['link'];
 
-            // Check if the 'id' key exists in the array
+            // // Check if the 'id' key exists in the array
             $id = $data['id'];
 
-            $sql = "UPDATE tb_wisata SET nama='$nama', link='$link' WHERE id='$id'";
+            if($data['imgEdited'] == 'edited') {
+                // delete image
+                $sqlGetImg = "SELECT img FROM tb_wisata WHERE id='$id'";
+                $resultGetImg = $this->con->query($sqlGetImg);
+                $img = $resultGetImg->fetch_assoc();
+                $imgPath = "assets/img/" . $img['img'];
+                if (file_exists($imgPath)) {
+                    unlink($imgPath);
+                }
+
+                // update data
+                $img = $data['img'];
+                $imgPath = $this->insertImg($img);
+
+                $sql = "UPDATE tb_wisata SET nama='$nama', link='$link', img='$imgPath' WHERE id='$id'";
+            } else {
+                $sql = "UPDATE tb_wisata SET nama='$nama', link='$link' WHERE id='$id'";
+            }
 
             $result = $this->con->query($sql);
 
@@ -97,7 +114,6 @@ class wisataController
                     array("message" => "Data gagal diupdate.")
                 );
             }
-
             
         } catch (\Throwable $e) {
             echo json_encode(
