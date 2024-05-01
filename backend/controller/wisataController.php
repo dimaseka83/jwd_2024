@@ -70,51 +70,22 @@ class wisataController
     }
 
     // function to update data by id from tb_wisata
-    public function updateData($put_json)
+    public function updateData($post_json)
     {
         try {
             // Convert $put_json to an array (if it's not already an array)
-            $data = (array) $put_json;
+            // Convert $post_json to an array (if it's not already an array)
+            $data = (array) $post_json;
 
             // Check if the 'id' key exists in the array
-            if (!isset($data['id'])) {
-                throw new Exception("ID not provided.");
-            }
+            $nama = $data['nama'];
+            $link = $data['link'];
 
-            // Get the existing data for this ID
-            $existingData = $this->getDataById($data['id']);
+            // Check if the 'id' key exists in the array
+            $id = $data['id'];
 
-            if (!$existingData) {
-                throw new Exception("Data not found for ID: " . $data['id']);
-            }
+            $sql = "UPDATE tb_wisata SET nama='$nama', link='$link' WHERE id='$id'";
 
-            // Prepare updated data
-            $nama = isset($data['nama']) ? $data['nama'] : $existingData['nama'];
-            $link = isset($data['link']) ? $data['link'] : $existingData['link'];
-            $img = isset($data['img']) ? $data['img'] : null;
-
-            // If a new image is provided, update the image
-            $imgPath = null;
-            if ($img) {
-                $imgPath = $this->insertImg($img);
-                if (!$imgPath) {
-                    throw new Exception("Failed to upload new image.");
-                }
-
-                // Delete the old image file if it exists
-                if ($existingData['img']) {
-                    $oldImagePath = "assets/img/" . $existingData['img'];
-                    if (file_exists($oldImagePath)) {
-                        unlink($oldImagePath);
-                    }
-                }
-            } else {
-                // If no new image provided, keep the existing image path
-                $imgPath = $existingData['img'];
-            }
-
-            // Update data in the database
-            $sql = "UPDATE tb_wisata SET nama='$nama', link='$link', img='$imgPath' WHERE id='{$data['id']}'";
             $result = $this->con->query($sql);
 
             if ($result) {
@@ -126,6 +97,8 @@ class wisataController
                     array("message" => "Data gagal diupdate.")
                 );
             }
+
+            
         } catch (\Throwable $e) {
             echo json_encode(
                 array("message" => $e->getMessage())

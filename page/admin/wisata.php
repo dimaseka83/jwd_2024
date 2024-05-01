@@ -152,27 +152,25 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
             $('.wisata')[0].reset();
         }
 
-        // function simpan data
-
-
-        const insertData = () => {
-
-        }
-
         $('.simpanData').click(function() {
-            const cekNotEmpty = $('input[name=nama]').val() && $('input[name=link]').val() && $('input[name=img]').val();
+            const cekNotEmpty = $('input[name=nama]').val() && $('input[name=link]').val();
             if (!cekNotEmpty) {
                 Swal.fire("Data tidak boleh kosong!", "", "error");
                 return;
             }
 
             let formData = new FormData($('.wisata')[0]);
+
+            if (wisataSelected) {
+                formData.append('id', wisataSelected.id);
+            }
+
             formData.append('nama', $('input[name=nama]').val());
             formData.append('link', $('input[name=link]').val());
-            formData.append('img', $('input[name=img]')[0].files[0]);
+            // formData.append('img', $('input[name=img]')[0].files[0]);
 
             $.ajax({
-                url: "/jwd/backend/wisata.php",
+                url: wisataSelected ? "/jwd/backend/wisata.php?id=" + wisataSelected.id : "/jwd/backend/wisata.php",
                 type: 'POST',
                 data: formData,
                 contentType: false,
@@ -184,9 +182,6 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
             });
         });
 
-
-
-
         // function edit data and show modal
         const editData = (id) => {
             const index = allDataWisata.findIndex(item => item.id == id);
@@ -196,8 +191,6 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
             $('input[name=link]').val(wisataSelected.link);
             // show modal
             $('#staticBackdrop').modal('show');
-
-
         }
 
         // function delete data from database
