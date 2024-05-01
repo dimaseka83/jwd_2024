@@ -22,11 +22,3 @@ Ada 2 Hak Akses yaitu admin dan customer
 1. Username dan Password admin yaitu username: admin, password: admin
 2. Username dan Password customer yaitu username: customer, password: customer 
 3. Customer dapat meregistrasikan diri di register, jika belum memiliki akun
-
-## Kontribusi
-
-Kami terbuka terhadap kontribusi. Jika Anda ingin berkontribusi pada proyek ini, silakan buka [Panduan Kontribusi](CONTRIBUTING.md) untuk detail lebih lanjut.
-
-## Lisensi
-
-Proyek ini dilisensikan di bawah [Lisensi MIT](LICENSE).

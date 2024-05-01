@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 30, 2024 at 11:42 PM
+-- Generation Time: May 01, 2024 at 04:03 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -40,16 +40,6 @@ CREATE TABLE `tb_pemesanan` (
   `paket_makan` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `tb_pemesanan`
---
-
-INSERT INTO `tb_pemesanan` (`id`, `nama`, `email`, `phone`, `jumlah_org`, `tgl_berangkat`, `tgl_pulang`, `paket_inap`, `paket_transport`, `paket_makan`) VALUES
-(10, 'smith eka', 'smith@mail.com', '8979798', 2, '2024-04-30', '2024-05-01', 1, 0, 1),
-(11, 'ready', 'dimaseka0101@gmail.com', '324234', 2, '2024-04-30', '2024-05-02', 0, 0, 1),
-(16, 'dhimas', 'dimaseka0101@gmail.com', '82731932', 6, '2024-04-30', '2024-05-31', 1, 1, 1),
-(17, 'dhimas', 'dimaseka0101@gmail.com', '9879798', 2, '2024-04-30', '2024-05-01', 1, 1, 0);
-
 -- --------------------------------------------------------
 
 --
@@ -68,9 +58,8 @@ CREATE TABLE `tb_user` (
 --
 
 INSERT INTO `tb_user` (`id`, `username`, `password`, `role`) VALUES
-(1, 'dhimas', '$2y$10$4FnRjB3bkpbfS4/IXhSMM.6GHiFP/i.nc87Y7bT4uvQxdpaxcOU0K', 'customer'),
-(2, 'admin', '$2y$10$Hyd4LreNSdAOzkluFdINBe7knKdfDHFcZxRiZQ6vnmxY6JuuFRZGm', 'admin'),
-(4, 'customer', '$2y$10$ytXUQK7V.0j20zCqp2q04uMvBsEeQJCYefpYtPktXf3ChMiKWGU7u', 'customer');
+(1, 'admin', '$2y$10$N/o7VczwnU0w/n0a5QAwqOt5lNWJ648rHvU6RX69JBlX.swgcDEw.', 'admin'),
+(2, 'customer', '$2y$10$wP97A7IDeE7F6MOQ7tBIZubmarI2RHJedc9GpZRvwINeWsM.NT6/K', 'customer');
 
 -- --------------------------------------------------------
 
@@ -90,7 +79,10 @@ CREATE TABLE `tb_wisata` (
 --
 
 INSERT INTO `tb_wisata` (`id`, `img`, `nama`, `link`) VALUES
-(16, '20240430233746_663164aac8861.png', 'Kawah Ijen', 'https://banyuwangitourism.com/destination/kawah-ijen');
+(1, '20240501154414_6632472ed4a0c.jpeg', 'Kawah Ijen', 'https://banyuwangitourism.com/destination/kawah-ijen'),
+(2, '20240501154513_6632476985e94.jpg', 'De Djawatan', 'https://banyuwangitourism.com/destination/de-djawatan'),
+(4, '20240501154745_663248018bb7f.jpeg', 'Wisata Waduk Londo', 'https://banyuwangitourism.com/destination/wisata-waduk-londo'),
+(5, '20240501154904_6632485009497.jpg', 'Gunung Raung', 'https://banyuwangitourism.com/destination/gunung-raung');
 
 --
 -- Indexes for dumped tables
@@ -122,19 +114,19 @@ ALTER TABLE `tb_wisata`
 -- AUTO_INCREMENT for table `tb_pemesanan`
 --
 ALTER TABLE `tb_pemesanan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tb_user`
 --
 ALTER TABLE `tb_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tb_wisata`
 --
 ALTER TABLE `tb_wisata`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
