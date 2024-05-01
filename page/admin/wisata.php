@@ -117,19 +117,27 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
                 success: function(response) {
                     allDataWisata = response
                     let html = '';
-                    allDataWisata.forEach(item => {
-                        html += `
+                    if (allDataWisata.length > 0) {
+                        allDataWisata.forEach(item => {
+                            html += `
                         <tr>
-                            <td><img src="/jwd/backend/assets/img/${item.img}" alt="${item.nama}" width="100" /></td>
-                            <td>${item.nama}</td>
-                            <td><a href="${item.link}" target="_blank">Kunjungi</a></td>
+                            <td><img src="/jwd/backend/assets/img/${item?.img}" alt="${item?.nama}" width="100" /></td>
+                            <td>${item?.nama}</td>
+                            <td><a href="${item?.link}" target="_blank">Kunjungi</a></td>
                             <td>
                                 <button class="btn btn-primary" onclick="editData(${item.id})">Edit</button>
                                 <button class="btn btn-danger" onclick="deleteData(${item.id})">Hapus</button>
                             </td>
                         </tr>
                         `;
-                    });
+                        });
+                    } else {
+                        html += `
+                        <tr>
+                            <td colspan="4" class="text-center">Data tidak ditemukan</td>
+                        </tr>
+                        `;
+                    }
                     $('.tableGambar tbody').html(html);
                 }
             });

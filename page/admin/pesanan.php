@@ -273,15 +273,16 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
           let data = result;
           tablePemesanan = result;
           let table = $("table tbody");
-          data.forEach((item) => {
-            table.append(`
+          if (data.length > 0) {
+            data.forEach((item) => {
+              table.append(`
                     <tr>
-                        <td>${item.nama}</td>
-                        <td>${item.phone}</td>
-                        <td>${item.email}</td>
-                        <td>${item.jumlah_org} Orang</td>
-                        <td>${changeDatetoLocale(item.tgl_berangkat)}</td>
-                        <td>${changeDatetoLocale(item.tgl_pulang)}</td>
+                        <td>${item?.nama}</td>
+                        <td>${item?.phone}</td>
+                        <td>${item?.email}</td>
+                        <td>${item?.jumlah_org} Orang</td>
+                        <td>${changeDatetoLocale(item?.tgl_berangkat)}</td>
+                        <td>${changeDatetoLocale(item?.tgl_pulang)}</td>
                         <td>${paketPerjalanan(item)}</td>
                         <td>${pricePackage(item).string}</td>
                         <td>${calculateTotalItem(item)}</td>
@@ -295,7 +296,15 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
                         </td>
                     </tr>
                 `);
-          });
+            });
+          }else {
+            table.append(`
+                <tr>
+                    <td colspan="10" class="text-center">Data tidak ditemukan</td>
+                </tr>
+            `);
+          
+          }
         }
       });
     });

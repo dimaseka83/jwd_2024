@@ -55,19 +55,23 @@ if ($_SESSION['role'] != 'customer') {
         success: function(response) {
           const data = response
           let html = ''
-          data.forEach(pariwisata => {
-            html += `
-            <div class="col-md-4">
-          <div class="card m-2" style="width: 18rem;">
-            <img src="/jwd/backend/assets/img/${pariwisata.img}" class="card-img-top" alt="..." />
-            <div class="card-body">
-              <h5 class="card-title">${pariwisata.nama}</h5>
-              <a href="${pariwisata.link}" target="_blank" class="btn btn-primary">Lihat Detail</a>
+          if (data.length > 0) {
+            data.forEach(pariwisata => {
+              html += `
+            <div class="col-md-4 d-flex align-items-stretch">
+              <div class="card flex-grow-1 m-2" style="width: 18rem;">
+                <img src="/jwd/backend/assets/img/${pariwisata?.img}" class="card-img-top" alt="${pariwisata?.nama}" />
+                <div class="card-body">
+                  <h5 class="card-title">${pariwisata?.nama}</h5>
+                  <a href="${pariwisata?.link}" target="_blank" class="btn btn-primary">Lihat Detail</a>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
             `;
-          });
+            });
+          }else {
+            html = '<h1 class="text-center">Data Kosong</h1>'
+          }
           $('.dataPariwisataBanyuwangi').html(html)
         }
       });
