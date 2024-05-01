@@ -1,7 +1,8 @@
 <?php
 session_start();
-if ($_SESSION['role'] != 'customer') {
-  header('Location: /jwd');
+// proteksi session jika user belum login
+if (!isset($_SESSION['role'])) {
+  header('Location: /jwd/page/auth/login.php');
 }
 ?>
 
@@ -33,7 +34,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link " href="/jwd/page/customer/index.php">Beranda</a>
+            <a class="nav-link " href="index.php">Beranda</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" href="#" aria-current="page">Form Pemesanan</a>
@@ -198,7 +199,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
         data: JSON.stringify(formData),
         success: function(result) {
           Swal.fire("Data berhasil disimpan!", "", "success");
-          window.location.href = "./pesanan.html";
+          window.location.href = "/jwd/page/admin/pesanan.php";
           resetForm();
         },
       });

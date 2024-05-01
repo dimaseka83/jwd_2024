@@ -1,83 +1,61 @@
-<?php
-session_start();
-include_once('./backend/koneksi.php');
-
-// create new database object
-$database = new Database();
-$db = $database->getConnection();
-
-
-// check if form is submitted
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-
-    // verify password using password_verify
-    $sql = "SELECT * FROM tb_user WHERE username = '$username'";
-    $result = $db->query($sql);
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        if (password_verify($password, $row['password'])) {
-            $_SESSION['username'] = $username;
-            $_SESSION['role'] = $row['role'];
-            if ($row['role'] == 'admin') {
-                header('Location: ./page/admin/pesanan.php');
-            } else {
-                header('Location: ./page/customer/index.php');
-            }
-        } else {
-            echo "Password salah";
-        }
-    } else {
-        echo "Username tidak ditemukan";
-    }
-}
-
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="./css/bootstrap.min.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+
+    <?php 
+    include('./components/nav.php')
+    ?>
 </head>
 
 <body>
-    <!-- change to center login -->
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h3 class="text-center">Login</h3>
-                        <form action="index.php" method="POST">
-                            <div class="mb-3">
-                                <label for="username" class="form-label">Username</label>
-                                <input type="text" class="form-control" id="username" name="username">
-                            </div>
-                            <div class="mb-3">
-                                <label for="password" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="password" name="password">
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <div>
-                                    Belum punya akun? <a href="register.php">Register</a>
-                                </div>
-                                <div>
-                                    <button type="submit" class="btn btn-lg btn-primary">Login</button>
-                                </div>
-                            </div>
-                        </form>
-                        <!-- Akhir Tombol Register -->
-                    </div>
+    <div class="row container mt-5 dataPariwisataBanyuwangi"></div>
+
+    <script>
+        // get data from backend
+        $(document).ready(function() {
+            $.ajax({
+                type: "GET",
+                url: "/jwd/backend/wisata.php",
+                success: function(response) {
+                    const data = response
+                    let html = ''
+                    if (data.length > 0) {
+                        data.forEach(pariwisata => {
+                            html += `
+            <div class="col-md-4 d-flex align-items-stretch">
+              <div class="card flex-grow-1 m-2" style="width: 18rem;">
+                <img src="/jwd/backend/assets/img/${pariwisata?.img}" class="card-img-top" alt="${pariwisata?.nama}" />
+                <div class="card-body">
+                  <h5 class="card-title">${pariwisata?.nama}</h5>
+                  <a href="/jwd/page/customer/form.php" class="btn btn-success">Pesan Sekarang</a>
+                  <a href="${pariwisata?.link}" target="_blank" class="btn btn-primary">Lihat Detail</a>
                 </div>
+              </div>
             </div>
-        </div>
-    </div>
+            `;
+                        });
+                    } else {
+                        html = '<h1 class="text-center">Data Kosong</h1>'
+                    }
+                    $('.dataPariwisataBanyuwangi').html(html)
+                }
+            });
+        });
+    </script>
+
+    <style>
+        /* card hover */
+        .card:hover {
+            transform: scale(1.05);
+            transition: transform 0.5s;
+        }
+    </style>
 
     <script src="./js/bootstrap.bundle.min.js"></script>
 </body>
