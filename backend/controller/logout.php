@@ -5,5 +5,5 @@ This is a common pattern used for logging out users by destroying their session 
 <?php
 session_start();
 session_destroy();
-header('Location: /jwd');
+header('Location: /');
 ?>

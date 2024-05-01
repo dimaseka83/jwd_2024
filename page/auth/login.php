@@ -26,9 +26,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['username'] = $username;
             $_SESSION['role'] = $row['role'];
             if ($row['role'] == 'admin') {
-                header('Location: /jwd/page/admin/pesanan.php');
+                header('Location: /page/admin/pesanan.php');
             } else {
-                header('Location: /jwd/page/customer/form.php');
+                header('Location: /page/customer/form.php');
             }
         } else {
             $error = "Password salah";
@@ -63,7 +63,7 @@ ob_start();
                         </div>
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <div>
-                                Belum punya akun? <a href="/jwd/page/auth/register.php">Register</a>
+                                Belum punya akun? <a href="/page/auth/register.php">Register</a>
                             </div>
                             <div>
                                 <button type="submit" class="btn btn-lg btn-primary">Login</button>

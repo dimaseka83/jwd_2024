@@ -6,11 +6,9 @@
 session_start();
 // proteksi session jika user belum login
 if (!isset($_SESSION['role'])) {
-    header('Location: /jwd');
-}
-
-if ($_SESSION['role'] != 'admin') {
-    header('Location: /jwd/page/customer/index.php');
+    header('Location: /');
+} else if ($_SESSION['role'] != 'admin') {
+    header('Location: /page/customer/form.php');
 }
 ob_start();
 ?>
@@ -81,7 +79,7 @@ ob_start();
     // for editing and deleting each entry.
     $(document).ready(function() {
         $.ajax({
-            url: "/jwd/backend/wisata.php",
+            url: "/backend/wisata.php",
             type: 'GET',
             success: function(response) {
                 allDataWisata = response
@@ -90,7 +88,7 @@ ob_start();
                     allDataWisata.forEach(item => {
                         html += `
                         <tr>
-                            <td><img src="/jwd/backend/assets/img/${item?.img}" alt="${item?.nama}" width="100" /></td>
+                            <td><img src="/backend/assets/img/${item?.img}" alt="${item?.nama}" width="100" /></td>
                             <td>${item?.nama}</td>
                             <td><a href="${item?.link}" target="_blank">Kunjungi</a></td>
                             <td>
@@ -151,7 +149,7 @@ ob_start();
         }
 
         $.ajax({
-            url: wisataSelected ? "/jwd/backend/wisata.php?id=" + wisataSelected.id : "/jwd/backend/wisata.php",
+            url: wisataSelected ? "/backend/wisata.php?id=" + wisataSelected.id : "/backend/wisata.php",
             type: 'POST',
             data: formData,
             contentType: false,
@@ -197,7 +195,7 @@ ob_start();
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: "/jwd/backend/wisata.php?id=" + id,
+                    url: "/backend/wisata.php?id=" + id,
                     type: 'DELETE',
                     success: function(response) {
                         Swal.fire("Data berhasil dihapus!", "", "success");

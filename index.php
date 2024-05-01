@@ -30,7 +30,7 @@ ob_start();
     $(document).ready(function() {
         $.ajax({
             type: "GET",
-            url: "/jwd/backend/wisata.php",
+            url: "/backend/wisata.php",
             success: function(response) {
                 const data = response
                 let html = ''
@@ -39,7 +39,7 @@ ob_start();
                         html += `
             <div class="col-md-4 d-flex align-items-stretch">
               <div class="card flex-grow-1 m-2">
-                <img src="/jwd/backend/assets/img/${pariwisata?.img}" class="card-img-top" alt="${pariwisata?.nama}" />
+                <img src="/backend/assets/img/${pariwisata?.img}" class="card-img-top" alt="${pariwisata?.nama}" />
                 <div class="card-body">
                   <h5 class="card-title">${pariwisata?.nama}</h5>
                   <a href="/jwd/page/customer/form.php" class="btn btn-success">Pesan Sekarang</a>

@@ -2,11 +2,9 @@
 session_start();
 // proteksi session jika user belum login
 if (!isset($_SESSION['role'])) {
-  header('Location: /jwd');
-}
-
-if ($_SESSION['role'] != 'admin') {
-  header('Location: /jwd/page/customer/index.php');
+  header('Location: /');
+} else if ($_SESSION['role'] != 'admin') {
+  header('Location: /page/customer/form.php');
 }
 ob_start();
 ?>
@@ -137,7 +135,7 @@ ob_start();
   </div>
 </div>
 
-<script src="../../js/globalFunction.js"></script>
+<script src="/assets/js/globalFunction.js"></script>
 <script>
   // variable
   let formDataSelected = null;
@@ -232,7 +230,7 @@ ob_start();
     // get data from database
 
     $.ajax({
-      url: "/jwd/backend/form.php",
+      url: "/backend/form.php",
       type: "GET",
       success: function(result) {
         let data = result;
@@ -292,7 +290,7 @@ ob_start();
     }).then((result) => {
       if (result.isConfirmed) {
         $.ajax({
-          url: "/jwd/backend/form.php?id=" + id,
+          url: "/backend/form.php?id=" + id,
           type: "DELETE",
           success: function(result) {
             Swal.fire("Terhapus!", "Data berhasil dihapus.", "success");
@@ -359,7 +357,7 @@ ob_start();
     $("#exampleModal").modal("show");
   };
 
-  The `simpan`
+  // The `simpan`
   // function validates the form fields to ensure that no data is left empty.It serializes the form data and iterates through each field to check
   // if any value is empty.If an empty field is found, it displays a warning message using Swal(SweetAlert) indicating that all fields must be filled.
   // If all fields are filled, it triggers a confirmation dialog using Swal, asking the user to confirm whether they want to proceed with saving the data.If the user confirms, it calls the `sendData`
@@ -413,7 +411,7 @@ ob_start();
 
     // kirim ke database
     $.ajax({
-      url: "/jwd/backend/form.php",
+      url: "/backend/form.php",
       type: "POST",
       data: JSON.stringify(formData),
       success: function(result) {

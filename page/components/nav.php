@@ -22,13 +22,13 @@
                     echo '
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="/jwd">Beranda</a>
+                            <a class="nav-link" href="/">Beranda</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/jwd/page/customer/form.php">Form Pemesanan</a>
+                            <a class="nav-link" href="/page/customer/form.php">Form Pemesanan</a>
                         </li>
                     </ul>
-                    <a class="nav-link" href="/jwd/backend/controller/logout.php">
+                    <a class="nav-link" href="/backend/controller/logout.php">
                         Logout
                     </a>';
                 } else {
@@ -36,13 +36,13 @@
                     echo '
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="/jwd/page/admin/pesanan.php">Daftar Pesanan</a>
+                            <a class="nav-link" href="/page/admin/pesanan.php">Daftar Pesanan</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/jwd/page/admin/wisata.php">Daftar Pariwisata</a>
+                            <a class="nav-link" href="/page/admin/wisata.php">Daftar Pariwisata</a>
                         </li>
                     </ul>
-                    <a class="nav-link" href="/jwd/backend/controller/logout.php">
+                    <a class="nav-link" href="/backend/controller/logout.php">
                         Logout
                     </a>';
                 }
@@ -54,7 +54,7 @@
                         <a class="nav-link" href="index.php"></a>
                     </li>
                 </ul>
-                <div class="d-flex "><a class="nav-link" href="/jwd/page/auth/login.php">Login</a></div>
+                <div class="d-flex "><a class="nav-link" href="/page/auth/login.php">Login</a></div>
                 ';
             }
             ?>
