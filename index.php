@@ -1,36 +1,22 @@
-<?php 
+<?php
 session_start();
+ob_start();
 ?>
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="./css/bootstrap.min.css" />
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<div class="row container mt-5 dataPariwisataBanyuwangi"></div>
 
-    <?php 
-    include('./page/components/nav.php')
-    ?>
-</head>
-
-<body>
-    <div class="row container mt-5 dataPariwisataBanyuwangi"></div>
-
-    <script>
-        // get data from backend
-        $(document).ready(function() {
-            $.ajax({
-                type: "GET",
-                url: "/jwd/backend/wisata.php",
-                success: function(response) {
-                    const data = response
-                    let html = ''
-                    if (data.length > 0) {
-                        data.forEach(pariwisata => {
-                            html += `
+<script>
+    // get data from backend
+    $(document).ready(function() {
+        $.ajax({
+            type: "GET",
+            url: "/jwd/backend/wisata.php",
+            success: function(response) {
+                const data = response
+                let html = ''
+                if (data.length > 0) {
+                    data.forEach(pariwisata => {
+                        html += `
             <div class="col-md-4 d-flex align-items-stretch">
               <div class="card flex-grow-1 m-2" style="width: 18rem;">
                 <img src="/jwd/backend/assets/img/${pariwisata?.img}" class="card-img-top" alt="${pariwisata?.nama}" />
@@ -42,25 +28,25 @@ session_start();
               </div>
             </div>
             `;
-                        });
-                    } else {
-                        html = '<h1 class="text-center">Data Kosong</h1>'
-                    }
-                    $('.dataPariwisataBanyuwangi').html(html)
+                    });
+                } else {
+                    html = '<h1 class="text-center">Data Kosong</h1>'
                 }
-            });
+                $('.dataPariwisataBanyuwangi').html(html)
+            }
         });
-    </script>
+    });
+</script>
 
-    <style>
-        /* card hover */
-        .card:hover {
-            transform: scale(1.05);
-            transition: transform 0.5s;
-        }
-    </style>
+<style>
+    /* card hover */
+    .card:hover {
+        transform: scale(1.05);
+        transition: transform 0.5s;
+    }
+</style>
 
-    <script src="./js/bootstrap.bundle.min.js"></script>
-</body>
-
-</html>
+<?php
+$content = ob_get_clean();
+require './page/components/index.php'
+?>

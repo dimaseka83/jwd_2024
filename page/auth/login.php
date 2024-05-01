@@ -34,58 +34,45 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-
+ob_start();
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../../css/bootstrap.min.css" />
-</head>
-
-<body>
-    <!-- change to center login -->
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <?php 
-                        if(!empty($error)){
-                            echo '<div class="alert alert-danger" role="alert">'.$error.'</div>';
-                        }
-                        ?>
-                        <h3 class="text-center">Login</h3>
-                        <form action="login.php" method="POST">
-                            <div class="mb-3">
-                                <label for="username" class="form-label">Username</label>
-                                <input type="text" class="form-control" id="username" name="username">
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <?php
+                    if (!empty($error)) {
+                        echo '<div class="alert alert-danger" role="alert">' . $error . '</div>';
+                    }
+                    ?>
+                    <h3 class="text-center">Login</h3>
+                    <form action="login.php" method="POST">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="username" name="username">
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password">
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div>
+                                Belum punya akun? <a href="/jwd/page/auth/register.php">Register</a>
                             </div>
-                            <div class="mb-3">
-                                <label for="password" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="password" name="password">
+                            <div>
+                                <button type="submit" class="btn btn-lg btn-primary">Login</button>
                             </div>
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <div>
-                                    Belum punya akun? <a href="/jwd/page/auth/register.php">Register</a>
-                                </div>
-                                <div>
-                                    <button type="submit" class="btn btn-lg btn-primary">Login</button>
-                                </div>
-                            </div>
-                        </form>
-                        <!-- Akhir Tombol Register -->
-                    </div>
+                        </div>
+                    </form>
+                    <!-- Akhir Tombol Register -->
                 </div>
             </div>
         </div>
     </div>
-
-    <script src="../../js/bootstrap.bundle.min.js"></script>
-</body>
-
-</html>
+</div>
+<?php
+$content = ob_get_clean();
+require '../../page/components/index.php';
+?>

@@ -3,7 +3,7 @@
 
 <nav class="navbar navbar-expand-lg shadow">
     <div class="container-fluid">
-        <a href="#" class="navbar-brand">Wisata Banyuwangi</a>
+        <a href="/jwd" class="navbar-brand">Wisata Banyuwangi</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
