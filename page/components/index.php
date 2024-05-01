@@ -5,8 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="./css/bootstrap.min.css" />
-    <link rel="stylesheet" href="../../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/jwd/assets/css/bootstrap.min.css" />
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script src="
 https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.all.min.js
@@ -23,7 +22,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 <body>
     <?php echo $content ?? ''; ?>
 
-    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script src="/jwd/assets/js/bootstrap.bundle.js"></script>
 </body>
 
 </html>

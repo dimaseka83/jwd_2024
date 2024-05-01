@@ -48,5 +48,5 @@ ob_start();
 
 <?php
 $content = ob_get_clean();
-require './page/components/index.php'
+require './page/components/index.php';
 ?>

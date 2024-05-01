@@ -14,7 +14,7 @@ class formController {
     public function getAll()
     {
         try {
-            $sql = "SELECT * FROM tb_pemesanan";
+            $sql = "SELECT * FROM tb_pemesanan ORDER BY id DESC";
             $result = $this->con->query($sql);
             // return response json
             if ($result->num_rows > 0) {
@@ -59,17 +59,14 @@ class formController {
             $result = $this->con->query($sql);
             if ($result) {
                 echo json_encode(
-                    // result data saved to json
-                    array("message" => "Data berhasil ditambahkan.", "data" => $post)
-                );
-            } else {
-                echo json_encode(
-                    array("message" => "Data gagal ditambahkan.")
+                    // result data saved to json and return 200
+                    array("message" => "Data berhasil ditambahkan.", "data" => $post, "status" => 200)
                 );
             }
         } catch (\Throwable $e) {
+            // status 500 if failed to save data
             echo json_encode(
-                array("message" => $e->getMessage())
+                array("message" => $e->getMessage(), "status" => 500)
             );
         }
     }
