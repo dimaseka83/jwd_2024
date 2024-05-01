@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once('./backend/koneksi.php');
+include_once('../../backend/koneksi.php');
 
 // create new database object
 $database = new Database();
@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="./css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../css/bootstrap.min.css" />
 </head>
 
 <body>
@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </div>
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <div>
-                                    Sudah punya akun? <a href="index.php">Login</a>
+                                    Sudah punya akun? <a href="/jwd/page/auth/login.php">Login</a>
                                 </div>
                                 <div>
                                     <button type="submit" class="btn btn-lg btn-primary">Register</button>
@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         </div>
     </div>
-    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

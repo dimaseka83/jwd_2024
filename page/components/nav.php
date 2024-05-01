@@ -1,6 +1,4 @@
 <?php
-session_start(); // Starting the session
-
 ?>
 
 <nav class="navbar navbar-expand-lg shadow">
@@ -18,13 +16,13 @@ session_start(); // Starting the session
                     echo '
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="index.php">Beranda</a>
+                            <a class="nav-link" href="/jwd">Beranda</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">Form Pemesanan</a>
+                            <a class="nav-link" href="/jwd/page/customer/form.php">Form Pemesanan</a>
                         </li>
                     </ul>
-                    <a class="nav-link" href="../../backend/controller/logout.php">
+                    <a class="nav-link" href="/jwd/backend/controller/logout.php">
                         Logout
                     </a>';
                 } else {
@@ -35,18 +33,32 @@ session_start(); // Starting the session
                             <a class="nav-link" href="/jwd/page/admin/pesanan.php">Daftar Pesanan</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">Daftar Pariwisata</a>
+                            <a class="nav-link" href="/jwd/page/admin/wisata.php">Daftar Pariwisata</a>
                         </li>
                     </ul>
-                    <a class="nav-link" href="../../backend/controller/logout.php">
+                    <a class="nav-link" href="/jwd/backend/controller/logout.php">
                         Logout
                     </a>';
                 }
             } else {
                 // If session role is not set, show login link
-                echo '<a class="nav-link" href="login.php">Login</a>';
+                echo '
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php"></a>
+                    </li>
+                </ul>
+                <div class="d-flex "><a class="nav-link" href="/jwd/page/auth/login.php">Login</a></div>
+                ';
             }
             ?>
         </div>
     </div>
 </nav>
+
+<script>
+    // add nav link active when url is same as href
+    $(document).ready(function() {
+        $('a[href="' + location.pathname + '"]').addClass('active')
+    })
+</script>

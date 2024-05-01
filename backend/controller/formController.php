@@ -59,7 +59,8 @@ class formController {
             $result = $this->con->query($sql);
             if ($result) {
                 echo json_encode(
-                    array("message" => "Data berhasil ditambahkan.")
+                    // result data saved to json
+                    array("message" => "Data berhasil ditambahkan.", "data" => $post)
                 );
             } else {
                 echo json_encode(

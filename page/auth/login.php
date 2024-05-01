@@ -6,6 +6,7 @@ include_once('../../backend/koneksi.php');
 $database = new Database();
 $db = $database->getConnection();
 
+$error = '';
 
 // check if form is submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -26,10 +27,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 header('Location: /jwd/page/customer/form.php');
             }
         } else {
-            echo "Password salah";
+            $error = "Password salah";
         }
     } else {
-        echo "Username tidak ditemukan";
+        $error = "Username tidak ditemukan";
     }
 }
 
@@ -53,6 +54,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-body">
+                        <?php 
+                        if(!empty($error)){
+                            echo '<div class="alert alert-danger" role="alert">'.$error.'</div>';
+                        }
+                        ?>
                         <h3 class="text-center">Login</h3>
                         <form action="login.php" method="POST">
                             <div class="mb-3">
@@ -65,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </div>
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <div>
-                                    Belum punya akun? <a href="register.php">Register</a>
+                                    Belum punya akun? <a href="/jwd/page/auth/register.php">Register</a>
                                 </div>
                                 <div>
                                     <button type="submit" class="btn btn-lg btn-primary">Login</button>

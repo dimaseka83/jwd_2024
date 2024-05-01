@@ -23,30 +23,13 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 " rel="stylesheet" />
 </head>
 
-<body>
-  <!-- html navigation -->
-  <nav class="navbar navbar-expand-lg shadow">
-    <div class="container-fluid">
-      <a href="#" class="navbar-brand">Wisata Banyuwangi</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link " href="index.php">Beranda</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" href="#" aria-current="page">Form Pemesanan</a>
-          </li>
-        </ul>
-        <a class="nav-link" href="../../backend/controller/logout.php">
-          Logout
-        </a>
-      </div>
-    </div>
-  </nav>
+<?php
+include('../components/nav.php')
+?>
 
+<body>
+
+  <div class="resultSimpan container mt-5"></div>
   <!-- form -->
   <div class="container mt-5">
     <h1 class="display-6">Form Pemesanan Paket Wisata</h1>
@@ -138,14 +121,15 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
           Hitung
         </button>
         <button class="btn btn-success mx-2" type="button" onclick="simpan()">Simpan</button>
-        <button class="btn btn-danger" type="button" onclick="resetForm()">
+        <a class="btn btn-danger" type="button" href="/jwd" onclick="resetForm()">
           Batal
-        </button>
+        </a>
       </div>
     </form>
   </div>
 
   <script>
+    let resultSave = null;
     // function simpan to save data
     const simpan = () => {
       const cekForm = $(".formPemesanan").serializeArray();
@@ -175,6 +159,118 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
       });
     }
 
+    const changeDatetoLocale = (date) => {
+      let newDate = new Date(date);
+      return newDate.toLocaleDateString();
+    };
+
+    const paketPerjalanan = (item) => {
+
+      let paket = [];
+      if (item.paket_inap == "1") {
+        paket.push("Paket Inap");
+      }
+      if (item.paket_transport == "1") {
+        paket.push("Paket Transport");
+      }
+      if (item.paket_makan == "1") {
+        paket.push("Paket Makan");
+      }
+
+      if (paket.length == 0) {
+        return "Tidak ada paket";
+      }
+
+      return paket.join(", ");
+    };
+
+    const pricePackage = (item) => {
+      let harga = 0;
+      if (item.paket_inap == "1") {
+        harga += 1000000;
+      }
+      if (item.paket_transport == "1") {
+        harga += 1200000;
+      }
+      if (item.paket_makan == "1") {
+        harga += 500000;
+      } else {
+        harga += 0;
+      }
+
+      return {
+        int: harga,
+        string: `Rp ${harga.toLocaleString()}`
+      };
+    };
+
+    const calculateTotalDaysItem = (item) => {
+      let tglBerangkat = new Date(item.tgl_berangkat);
+      let tglPulang = new Date(item.tgl_pulang);
+      let diffTime = Math.abs(tglPulang - tglBerangkat);
+      let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      return diffDays;
+    };
+
+    const calculateTotalItem = (item) => {
+      let totalDays = calculateTotalDaysItem(item);
+
+      if (calculateTotalDaysItem(item) == 0) {
+        totalDays = 1;
+      }
+
+      const totalTagihan =
+        pricePackage(item).int * totalDays * item.jumlah_org;
+
+      if (item.jumlah_org > 5) {
+        const diskon = totalTagihan * 0.1;
+
+        return `Rp ${totalTagihan.toLocaleString()} (Diskon 10% = Rp ${(
+              totalTagihan - diskon
+            ).toLocaleString()})`;
+      } else {
+        return `Rp ${totalTagihan.toLocaleString()}`;
+      }
+    };
+
+    const showResultResponse = (result) => {
+      let html = "";
+      html += `
+      <div class="alert alert-success" role="alert">
+        ${result.message}
+      </div>
+      <table class="table mt-2">
+      <thead>
+        <tr>
+          <th>Nama Pemesan</th>
+          <th>Nomor Telp / HP</th>
+          <th>Email</th>
+          <th>Jumlah Orang</th>
+          <th>Tanggal Berangkat</th>
+          <th>Tanggal Pulang</th>
+          <th>Pelayanan Paket Perjalanan</th>
+          <th>Harga Paket Perjalanan</th>
+          <th>Jumlah Tagihan</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>${result.data.nama}</td>
+          <td>${result.data.phone}</td>
+          <td>${result.data.email}</td>
+          <td>${result.data.jumlah_org}</td>
+          <td>${changeDatetoLocale(result.data.tgl_berangkat)}</td>
+          <td>${changeDatetoLocale(result.data.tgl_pulang)}</td>
+          <td>${paketPerjalanan(result.data)}</td>
+          <td>${pricePackage(result.data).string}</td>
+          <td>${calculateTotalItem(result.data)}</td>
+        </tr>
+      </tbody>
+    </table>
+      `
+
+      $(".resultSimpan").html(html);
+    };
     // function send data to database via api
     const sendData = () => {
       const data = $(".formPemesanan").serializeArray();
@@ -199,7 +295,8 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
         data: JSON.stringify(formData),
         success: function(result) {
           Swal.fire("Data berhasil disimpan!", "", "success");
-          window.location.href = "/jwd/page/admin/pesanan.php";
+          resultSave = result;
+          showResultResponse(result);
           resetForm();
         },
       });
