@@ -1,5 +1,8 @@
 <?php
-
+// The provided PHP class Database represents a database connection handler. 
+// It defines private properties for server name, username, password, and database name, which are used to establish a connection to the specified database. 
+// The class includes a public method getConnection(), which creates a new mysqli connection using the provided credentials. If the connection fails, it throws an Exception with an error message. 
+// This class encapsulates database connection logic and can be instantiated to establish connections within PHP applications.
 class Database
 {
     // private is only accessible within the class

@@ -13,7 +13,9 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.all.min.js
     <link href="
 https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css
 " rel="stylesheet" />
-
+<!-- 
+    this code sets up the basic structure of an HTML document, includes a navigation component, and allows for dynamic content rendering. 
+    Additionally, it includes the necessary JavaScript file for Bootstrap functionality. -->
     <?php
     require 'nav.php';
     ?>

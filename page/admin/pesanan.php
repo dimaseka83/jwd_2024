@@ -142,7 +142,10 @@ ob_start();
   // variable
   let formDataSelected = null;
   let tablePemesanan = null;
-
+  // The provided JavaScript code initializes upon document ready, executing an AJAX GET request to retrieve data from the backend PHP script.
+  // Upon success, it populates a table with the fetched data, iterating through each item and appending corresponding HTML table rows.
+  // Additionally, several helper functions are defined within the script to facilitate tasks such as formatting dates, calculating total package prices, and determining the total number of days
+  // for a trip.Each table row includes buttons to edit or delete the corresponding data entry.If the fetched data is empty, a message indicating no data is displayed within the table.
   $(document).ready(function() {
 
     // function paketPerjalanan to check and show in array
@@ -272,7 +275,11 @@ ob_start();
   });
 
   // function delete data from database
-
+  // The provided JavaScript
+  // function `deleteData`
+  // is triggered when a delete action is initiated on a specific data entry.It utilizes the Swal(SweetAlert) library to prompt the user with a confirmation dialog, asking
+  // if they are sure about the deletion.Upon confirmation, an AJAX DELETE request is sent to the backend PHP script with the corresponding data entry ID.
+  // If the deletion is successful, another Swal alert notifies the user, and the page is reloaded to reflect the updated data.
   const deleteData = (id) => {
     Swal.fire({
       title: "Apakah Anda Yakin?",
@@ -297,7 +304,12 @@ ob_start();
     });
   };
 
-  // function edit data from database
+  // The `editData`
+  // function is responsible
+  // for populating a form with existing data
+  // for editing.It retrieves the specific data entry from the `tablePemesanan`
+  // array based on the provided ID.Then, it updates the form fields with the corresponding values, including name, phone, email, number of people, travel dates, and selected package options.Additionally, it ensures that the end date input field is enabled and has a minimum value set based on the start date.Finally, it calculates and displays the total price of the selected travel packages, triggers a calculation of the total bill, and displays the modal
+  // for editing.
   const editData = (id) => {
     let data = tablePemesanan.find((item) => item.id == id);
     formDataSelected = data;
@@ -347,7 +359,12 @@ ob_start();
     $("#exampleModal").modal("show");
   };
 
-  // function simpan to save data
+  The `simpan`
+  // function validates the form fields to ensure that no data is left empty.It serializes the form data and iterates through each field to check
+  // if any value is empty.If an empty field is found, it displays a warning message using Swal(SweetAlert) indicating that all fields must be filled.
+  // If all fields are filled, it triggers a confirmation dialog using Swal, asking the user to confirm whether they want to proceed with saving the data.If the user confirms, it calls the `sendData`
+  // function to send the form data to the backend
+  // for processing.
   const simpan = () => {
     const cekForm = $(".formPemesanan").serializeArray();
 
@@ -375,7 +392,10 @@ ob_start();
     });
   }
 
-  // function send data to database via api on edit
+  // The `sendData` function serializes the form data using jQuery 's `serializeArray` method and then constructs an object `formData` from the serialized data. 
+  // It adds additional properties such as `id`, `paket_inap`, `paket_transport`, and `paket_makan` to `formData`. 
+  // These properties are derived from the form inputs, particularly checkboxes, to determine whether certain options are selected or not.
+  // It then sends the data to the backend using an AJAX POST request to the specified URL. Upon successful submission, it displays a success message using Swal (SweetAlert), reloads the page, and resets the form fields.
   const sendData = () => {
     const data = $(".formPemesanan").serializeArray();
     const formData = {}
@@ -398,7 +418,7 @@ ob_start();
       data: JSON.stringify(formData),
       success: function(result) {
         Swal.fire("Data berhasil disimpan!", "", "success");
-        window.location.href = "./pesanan.html";
+        location.reload();
         resetForm();
       },
     });

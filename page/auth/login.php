@@ -1,3 +1,7 @@
+<!-- This PHP script handles user authentication by processing form data, querying the database for the user's credentials, and verifying the provided password against the hashed password stored in the database.
+ If the username is found and the password matches, the user's session is initialized with the username and role, redirecting them to their respective dashboard based on their role (admin or customer).
+  Error messages are generated if the username is not found or if the password is incorrect, providing feedback to the user. Additionally, output buffering is initiated to manage output effectively. 
+Overall, this script encapsulates the authentication process, ensuring secure access to different sections of the website based on user roles. -->
 <?php
 session_start();
 include_once('../../backend/koneksi.php');

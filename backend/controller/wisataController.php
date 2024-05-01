@@ -1,4 +1,8 @@
 <?php
+// The `wisataController` class is responsible for controlling interactions related to the "tb_wisata" table in the database.
+//  It has a private property `$con` to store the database connection. 
+//  The constructor method accepts a database connection `$db` as a parameter and initializes the `$con` property with this connection. 
+// This design enables the class to access the database connection throughout its methods for executing queries and performing database operations related to the "tb_wisata" table.
 class wisataController
 {
     private $con = null;
@@ -8,7 +12,12 @@ class wisataController
         $this->con = $db;
     }
 
-    // function to get data by id from tb_wisata
+// The `getAll` method retrieves all data from the "tb_wisata" table. 
+// It executes a SQL query to select all records from the table.
+//  If there are rows returned from the query, it fetches each row and stores it in an array.
+//   Finally, it encodes the array into JSON format and echoes it as the response. 
+// If there are no rows returned, it echoes an empty JSON array. 
+// In case of any errors during the execution of the method, it catches the exception, encodes an error message into a JSON object, and echoes it as the response.
     public function getAll()
     {
         try {
@@ -32,7 +41,10 @@ class wisataController
         }
     }
 
-    // function to get data from tb_wisata
+    // The insertData method within the wisataController class is responsible for inserting new data into the "tb_wisata" table in the database.
+    //  It takes a JSON object $post_json as input, which is converted to an associative array. 
+    //  The method extracts the necessary data such as the name, link, and image path from the array. 
+    // It then constructs an SQL query to insert this data into the database.
     public function insertData($post_json)
     {
         try {
@@ -69,7 +81,9 @@ class wisataController
         }
     }
 
-    // function to update data by id from tb_wisata
+    // The `updateData` method within the `wisataController` class handles the updating of existing data in the "tb_wisata" table of the database. 
+    // It takes a JSON object `$post_json` as input, converts it to an associative array, and extracts the necessary data such as the name, link, and ID from the array. Depending on whether the image has been edited (`imgEdited` is set to 'edited'), it may delete the existing image associated with the record from the server. It then constructs an SQL query to update the corresponding record with the new data. Upon successful execution of the query, it returns a JSON response indicating success. If an error occurs during the process, it returns a JSON response containing the error message. 
+    // This method ensures proper handling of database update operations and provides feedback to the user about the outcome of the operation.
     public function updateData($post_json)
     {
         try {
@@ -122,7 +136,10 @@ class wisataController
         }
     }
 
-    // function to delete data by id from tb_wisata
+    // The `deleteData` method within the `wisataController` class handles the deletion of a record from the "tb_wisata" table in the database. 
+    // It takes the ID of the record to be deleted as input. 
+    // The method constructs an SQL query to delete the record with the specified ID from the table. 
+    // Additionally, it retrieves the image file path associated with the record and deletes the corresponding image file from the server if it exists. After executing the deletion query and ensuring the deletion of the image file, it returns a JSON response indicating the success or failure of the deletion operation, along with an appropriate message. In case of any exceptions or errors during the process, it returns a JSON response containing the error message. This method ensures proper handling of record deletion and provides feedback to the user about the outcome of the operation.
     public function deleteData($id)
     {
         try {
@@ -153,7 +170,10 @@ class wisataController
         }
     }
 
-    // function to insert image
+    // The `insertImg` method within the `wisataController` class handles the uploading of image files to the server. 
+    // It takes the uploaded image file as input and performs several validation checks before moving the file to the specified directory.
+    //  The method first determines the target directory and generates a unique filename based on the current date, time, and a unique identifier. It then performs validation checks on the uploaded file, including checking its type, size, and whether it is a valid image file. If the file passes all the checks, it is moved to the target directory, and the method returns the filename of the uploaded image. Otherwise, it returns false, indicating that the upload process failed. 
+    // This method ensures that only valid image files are uploaded to the server and provides feedback on the success or failure of the upload operation.
     public function insertImg($img)
     {
         // move the uploaded image to the folder

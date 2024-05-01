@@ -10,7 +10,11 @@ class formController {
         $this->con = $db;
     }
 
-    // function to get all data from tb_pemesanan
+    // The `getAll` method within the PHP class retrieves all records from the `tb_pemesanan` table in descending order by ID. 
+    // It executes a SQL query to fetch the data and formats the result into a JSON response. 
+    // If there are records found, it encodes them into JSON format and echoes the result. 
+    // If no records are found, it echoes an empty JSON array.
+    //  Additionally, it includes error handling to catch any exceptions that may occur during the database query execution and responds with a JSON error message indicating the failure to retrieve data.
     public function getAll()
     {
         try {
@@ -36,7 +40,10 @@ class formController {
         }
     }
 
-    // function to insert or Update data by id from tb_pemesanan
+    // The `insertData` method of the PHP class handles the insertion of new data into the `tb_pemesanan` table based on the provided POST data. 
+    // It first casts the input data to an associative array and extracts relevant fields such as name, email, phone number, number of people, travel dates, and package details. 
+    // Depending on whether an ID is provided in the input data, it constructs either an SQL UPDATE or INSERT query accordingly. Upon execution of the query, it echoes a JSON response indicating the success or failure of the operation along with appropriate status codes. If successful, it returns a message confirming the data addition and includes the inserted data in the response.
+    //  If an exception occurs during the database operation, it returns an error message along with a status code of 500.
     public function insertData($post) {
         try {
             $post = (array) $post;
@@ -71,7 +78,11 @@ class formController {
         }
     }
 
-    // function to delete data by id from tb_pemesanan
+    // The `deleteData` method within the PHP class handles the deletion of a specific record from the `tb_pemesanan` table based on the provided ID. 
+    // It constructs a SQL DELETE query to remove the record with the specified ID. 
+    // Upon execution of the query, it checks whether the deletion was successful. If successful, it echoes a JSON response indicating the successful deletion of the data. 
+    // If the deletion fails, it returns a message indicating the failure.
+    //  In case of any exceptions during the database operation, it returns an error message indicating the cause of the failure.
     public function deleteData($id) {
         try {
             $sql = "DELETE FROM tb_pemesanan WHERE id='$id'";

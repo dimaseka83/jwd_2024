@@ -1,6 +1,7 @@
 <?php
 ?>
-
+<!-- this code sets up the basic structure of an HTML document, includes a navigation component, and allows for dynamic content rendering. 
+            Additionally, it includes the necessary JavaScript file for Bootstrap functionality. -->
 <nav class="navbar navbar-expand-lg shadow">
     <div class="container-fluid">
         <a href="/jwd" class="navbar-brand">Wisata Banyuwangi</a>
@@ -8,7 +9,12 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
             <?php
+            // this code segment dynamically generates navigation links based on the user's role. 
+            // It provides different sets of links for customers and admins,
+            //  ensuring appropriate navigation options are presented based on the user's role and authentication status.
+
             // Checking if session role is set
             if (isset($_SESSION['role'])) {
                 if ($_SESSION['role'] == 'customer') {

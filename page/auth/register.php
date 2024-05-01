@@ -1,3 +1,7 @@
+<!-- This PHP code segment initiates user registration functionality by starting a session and establishing a database connection.
+It verifies the form submission, retrieves user input, and securely hashes the password before inserting user details into the database with a defined role. 
+Error handling is implemented to manage registration success or failure, updating the `$error` variable accordingly. Finally, output buffering is enabled to streamline output management. 
+In essence, this script encapsulates the entire process of user registration, ensuring secure storage of user credentials and providing clear feedback to the user upon registration completion or failure. -->
 <?php
 session_start();
 include_once('../../backend/koneksi.php');
@@ -7,6 +11,7 @@ $database = new Database();
 $db = $database->getConnection();
 
 // check if form is submitted
+$error = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
@@ -16,9 +21,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $sql = "INSERT INTO tb_user (username, password, role) VALUES ('$username', '$password', 'customer')";
     $result = $db->query($sql);
     if ($result) {
-        echo "Register berhasil";
+        $error = 'Register berhasil';
+        header('Location: /jwd/page/auth/login.php');
     } else {
-        echo "Register gagal";
+        $error = 'Register gagal';
     }
 }
 ob_start();
@@ -29,6 +35,11 @@ ob_start();
         <div class="col-md-4">
             <div class="card">
                 <div class="card-body">
+                    <?php
+                    if (!empty($error)) {
+                        echo '<div class="alert alert-danger" role="alert">' . $error . '</div>';
+                    }
+                    ?>
                     <h3 class="text-center">Register</h3>
                     <form action="register.php" method="POST">
                         <div class="mb-3">

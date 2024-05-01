@@ -1,3 +1,7 @@
+<!-- This PHP script initiates a session and provides session protection by redirecting users who haven't logged in to the homepage.
+ If the session role is not set or if the role is not 'admin', users are redirected to the appropriate page: either the homepage for unauthenticated users or the customer index page for non-administrative users. 
+ Output buffering is activated to manage output efficiently. 
+ In summary, this script ensures that only authenticated admin users can access the content of the page, redirecting others to relevant destinations based on their role and login status. -->
 <?php
 session_start();
 // proteksi session jika user belum login
@@ -59,7 +63,7 @@ ob_start();
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
                 <button type="button" class="btn btn-primary simpanData">Simpan</button>
             </div>
         </div>
@@ -71,6 +75,10 @@ ob_start();
     let allDataWisata = [];
     let wisataSelected = null;
 
+    // This JavaScript code snippet utilizes jQuery to perform an AJAX request to retrieve data from the "wisata.php"
+    // backend endpoint.Upon successful retrieval, it dynamically generates HTML content based on the received data.For each item in the dataset, it creates a table row(`<tr>`) containing an image, name, link, and buttons
+    // for editing and deleting.If no data is found, it displays a message indicating the absence of data.Finally, the generated HTML content is inserted into the table body of an element with the class "tableGambar".Overall, this script dynamically populates a table with data fetched from the backend, providing options
+    // for editing and deleting each entry.
     $(document).ready(function() {
         $.ajax({
             url: "/jwd/backend/wisata.php",
@@ -104,7 +112,12 @@ ob_start();
         });
     });
 
-    // function tambah data
+    // This JavaScript code manages the addition of data through a form modal.When triggered, the `addData()`
+    // function displays a modal and resets the form fields.Upon clicking the "simpanData"
+    // button, it validates the input fields for "nama"
+    // and "link", showing an error if they are empty.It then constructs a FormData object from the form data, appending additional data such as ID and image files
+    // if available.Subsequently, it sends a POST request to the backend endpoint "/jwd/backend/wisata.php"
+    // with the FormData.Upon successful submission, it displays a success message and reloads the page after a brief delay.
 
     const addData = () => {
         // show modal
@@ -152,7 +165,12 @@ ob_start();
         });
     });
 
-    // function edit data and show modal
+    // This JavaScript
+    // function, `editData(id)`, facilitates the editing of data by retrieving the details of a specific item identified by its unique ID.It first searches
+    // for the index of the item within the `allDataWisata`
+    // array using the provided ID.Once found, it assigns the selected item 's details to the `wisataSelected` variable. 
+    // Subsequently, it populates the input fields with the retrieved name and link values, preparing the modal for editing. 
+    // Finally, it displays the modal with the id "staticBackdrop" to allow users to modify the selected item's information.
     const editData = (id) => {
         const index = allDataWisata.findIndex(item => item.id == id);
         wisataSelected = allDataWisata[index];
@@ -163,7 +181,10 @@ ob_start();
         $('#staticBackdrop').modal('show');
     }
 
-    // function delete data from database
+    // The JavaScript function `deleteData(id)`
+    // enables the deletion of a specific data entry identified by its unique ID.It triggers a confirmation dialog using SweetAlert, informing the user about the irreversible nature of the action.
+    // If the user confirms deletion, an AJAX DELETE request is sent to the backend endpoint "/jwd/backend/wisata.php?id="
+    // appended with the ID of the data to be deleted.Upon successful deletion, a success message is displayed, and the page is reloaded after a brief delay to reflect the changes.
     const deleteData = (id) => {
         Swal.fire({
             title: 'Apakah anda yakin?',
