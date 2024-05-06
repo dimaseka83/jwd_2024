@@ -2,7 +2,7 @@
 session_start();
 // proteksi session jika user belum login
 if (!isset($_SESSION['role'])) {
-  header('Location: /');
+  header('Location: /page/auth/login.php');
 } else if ($_SESSION['role'] != 'admin') {
   header('Location: /page/customer/form.php');
 }
@@ -14,13 +14,13 @@ ob_start();
     <thead>
       <tr>
         <th>Nama Pemesan</th>
-        <th>Nomor Telp / HP</th>
-        <th>Email</th>
-        <th>Jumlah Orang</th>
-        <th>Tanggal Berangkat</th>
-        <th>Tanggal Pulang</th>
-        <th>Pelayanan Paket Perjalanan</th>
-        <th>Harga Paket Perjalanan</th>
+        <th>Nomor Identitas</th>
+        <th>Jenis Kelamin</th>
+        <th>Kamar</th>
+        <th>Harga</th>
+        <th>Tanggal Pemesanan</th>
+        <th>Jumlah Hari</th>
+        <th>Termasuk Breakfast</th>
         <th>Jumlah Tagihan</th>
         <th>Aksi</th>
       </tr>
@@ -38,69 +38,34 @@ ob_start();
       </div>
       <div class="modal-body">
         <form class="row g-3 formPemesanan">
-          <div class="col-md-4">
+          <div class="col-md-6">
             <div class="form-group">
               <label for="">Nama Pemesan</label>
-              <input type="text" name="nama" class="form-control" name="" />
+              <input type="text" name="nama" id="" class="form-control" placeholder="" aria-describedby="helpId">
             </div>
           </div>
 
-          <div class="col-md-4">
+          <div class="col-md-6">
             <div class="form-group">
-              <label for="">Nomor Telp / HP</label>
-              <input type="number" name="phone" class="form-control" />
+              <label for="">Nomor Identitas</label>
+              <input type="number" name="identitas" id="" class="form-control" placeholder="" aria-describedby="helpId">
+              <div class="invalid-feedback">Isian Salah Harus 16 Digit</div>
             </div>
           </div>
 
-          <div class="col-md-4">
+          <div class="col-md-6">
             <div class="form-group">
-              <label for="">Email</label>
-              <input type="email" name="email" class="form-control" />
-            </div>
-          </div>
-
-          <div class="col-md-3">
-            <div class="form-group">
-              <label for="">Jumlah Orang</label>
-              <input type="number" name="jumlah_org" class="form-control jmlOrg" />
-              <small class="form-text"><span class="text-danger">*</span>Jika Pemesanan lebih dari
-                5 orang, maka anda berhak mendapatkan diskon 10%</small>
-            </div>
-          </div>
-
-          <div class="col-md-3">
-            <div class="form-group">
-              <label for="">Tanggal Berangkat</label>
-              <input type="date" name="tgl_berangkat" class="form-control checkIn" />
-            </div>
-          </div>
-
-          <div class="col-md-3">
-            <div class="form-group">
-              <label for="">Tanggal Pulang</label>
-              <input type="date" name="tgl_pulang" class="form-control checkOut" disabled />
-            </div>
-          </div>
-
-          <div class="col-md-3">
-            <div class="form-group">
-              <label for="">Pelayanan Paket Perjalanan</label>
+              <label for="">Jenis Kelamin</label>
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="1000000" id="flexCheckDefault" />
-                <label class="form-check-label" for="flexCheckDefault">
-                  Penginapan (Rp. 1.000.000)
+                <input class="form-check-input" type="radio" name="kelamin" id="exampleRadios1" value="laki" checked>
+                <label class="form-check-label" for="exampleRadios1">
+                  Laki-laki
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="1200000" id="flexCheckDefault" />
-                <label class="form-check-label" for="flexCheckDefault">
-                  Transportasi (Rp.1.200.000)
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="500000" id="flexCheckDefault" />
-                <label class="form-check-label" for="flexCheckDefault">
-                  Makanan (Rp. 500.000)
+                <input class="form-check-input" type="radio" name="kelamin" id="exampleRadios2" value="perempuan">
+                <label class="form-check-label" for="exampleRadios2">
+                  Perempuan
                 </label>
               </div>
             </div>
@@ -108,14 +73,53 @@ ob_start();
 
           <div class="col-md-6">
             <div class="form-group">
-              <label for="">Harga Paket Perjalanan</label>
-              <input type="text" class="form-control hargaPaketPerjalanan" readonly />
+              <label for="">Tipe Kamar</label>
+              <select name="kamar" id="" class="form-control"></select>
             </div>
           </div>
+
+          <div class="col-md 6">
+            <div class="form-group">
+              <label for="">Harga</label>
+              <input type="text" class="form-control priceKamar" disabled placeholder="" aria-describedby="helpId">
+            </div>
+          </div>
+
           <div class="col-md-6">
             <div class="form-group">
-              <label for="">Jumlah Tagihan</label>
-              <input type="text" class="form-control jumlahTagihan" />
+              <label for="">Tanggal Pesan</label>
+              <input type="date" name="tglpesan" id="" class="form-control checkIn" placeholder="" aria-describedby="helpId">
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="">Durasi</label>
+              <div class="input-group mb-3">
+                <input type="text" name="jmlHari" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                <span class="input-group-text" id="basic-addon2">Hari</span>
+                <div class="invalid-feedback">Harus isi angka</div>
+              </div>
+              <span class="text-muted"><span class="text-danger">*</span>Diskon 10% jika lebih dari 3 hari</span>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="">Termasuk Breakfast</label>
+              <div class="form-check">
+                <input class="form-check-input" name="breakfast" type="checkbox" value="0" id="breakFastCheck">
+                <label class="form-check-label" for="breakFastCheck">
+                  Tidak
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="">Total Bayar</label>
+              <input type="text" class="form-control totalTagihan" disabled>
             </div>
           </div>
         </form>
@@ -124,9 +128,7 @@ ob_start();
         <button class="btn btn-success" type="button" onclick="kalkulasiTagihan()">
           Hitung
         </button>
-        <button class="btn btn-success mx-2" type="button" onclick="simpan()">
-          Simpan
-        </button>
+        <button class="btn btn-success mx-2" type="button" onclick="simpan()">Simpan</button>
         <button class="btn btn-danger" type="button" data-bs-dismiss="modal">
           Batal
         </button>
@@ -140,6 +142,46 @@ ob_start();
   // variable
   let formDataSelected = null;
   let tablePemesanan = null;
+  let dataKamar = null;
+
+  // checkbox breakfast
+  $("#breakFastCheck").change(function() {
+    if (this.checked) {
+      $(this).val("1");
+      $('label[for="breakFastCheck"]').text('Ya');
+    } else {
+      $(this).val("0");
+      $('label[for="breakFastCheck"]').text('Tidak');
+    }
+  });
+
+
+  $("select[name='kamar']").change(function() {
+    let idKamar = $(this).val();
+    let data = dataKamar.find((item) => item.id == idKamar);
+    $(".formPemesanan .priceKamar").val(currencyRupiah(data.harga));
+  });
+
+  // jmlHari input must number
+  $("input[name='jmlHari']").on("input", function() {
+    let value = $(this).val();
+    if (isNaN(value)) {
+      $(this).addClass("is-invalid");
+    } else {
+      $(this).removeClass("is-invalid");
+    }
+  });
+
+  // isian identitas must 16 digit
+  $("input[name='identitas']").on("input", function() {
+    let value = $(this).val();
+    if (value.length != 16) {
+      $(this).addClass("is-invalid");
+    } else {
+      $(this).removeClass("is-invalid");
+    }
+  });
+
   // The provided JavaScript code initializes upon document ready, executing an AJAX GET request to retrieve data from the backend PHP script.
   // Upon success, it populates a table with the fetched data, iterating through each item and appending corresponding HTML table rows.
   // Additionally, several helper functions are defined within the script to facilitate tasks such as formatting dates, calculating total package prices, and determining the total number of days
@@ -147,108 +189,97 @@ ob_start();
   $(document).ready(function() {
 
     // function paketPerjalanan to check and show in array
-    const paketPerjalanan = (item) => {
-
-      let paket = [];
-      if (item.paket_inap == "1") {
-        paket.push("Paket Inap");
+    const jenisKelamin = (data) => {
+      if (data.kelamin == "laki") {
+        return "Laki-laki";
+      } else {
+        return "Perempuan";
       }
-      if (item.paket_transport == "1") {
-        paket.push("Paket Transport");
-      }
-      if (item.paket_makan == "1") {
-        paket.push("Paket Makan");
-      }
-
-      if (paket.length == 0) {
-        return "Tidak ada paket";
-      }
-
-      return paket.join(", ");
     };
 
-    // function hargaPaket to calculate the price
+    const getNamaKamar = (data) => {
+      let kamar = dataKamar.find((item) => item.id == data?.kamar);
 
-    const pricePackage = (item) => {
-      let harga = 0;
-      if (item.paket_inap == "1") {
-        harga += 1000000;
+      if (!kamar) {
+        return {
+          nama: "Tidak Diketahui",
+          harga: 0
+        }
       }
-      if (item.paket_transport == "1") {
-        harga += 1200000;
-      }
-      if (item.paket_makan == "1") {
-        harga += 500000;
-      } else {
-        harga += 0;
-      }
-
       return {
-        int: harga,
-        string: `Rp ${harga.toLocaleString()}`
-      };
-    };
-
-    // function calculateTotalDays to calculate the total days
-
-    const calculateTotalDays = (item) => {
-      let tglBerangkat = new Date(item.tgl_berangkat);
-      let tglPulang = new Date(item.tgl_pulang);
-      let diffTime = Math.abs(tglPulang - tglBerangkat);
-      let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-      return diffDays;
-    };
-
-    // function changeDatetoLocale to change the date to locale
-    const changeDatetoLocale = (date) => {
-      let newDate = new Date(date);
-      return newDate.toLocaleDateString();
-    };
-
-    // function calculateTotalItem to calculate the total item
-    const calculateTotalItem = (item) => {
-      let totalDays = calculateTotalDays(item);
-
-      if (calculateTotalDays(item) == 0) {
-        totalDays = 1;
+        namaKamar: kamar?.nama,
+        harga: kamar?.harga
       }
+    };
 
-      const totalTagihan =
-        pricePackage(item).int * totalDays * item.jumlah_org;
+    const changeDatetoLocale = (data) => {
+      let date = new Date(data);
+      return date.toLocaleDateString();
+    };
 
-      if (item.jumlah_org > 5) {
-        const diskon = totalTagihan * 0.1;
-
-        return `Rp ${totalTagihan.toLocaleString()} (Diskon 10% = Rp ${(
-              totalTagihan - diskon
-            ).toLocaleString()})`;
+    const isBreakfast = (data) => {
+      if (data.breakfast == "1") {
+        return "Ya";
       } else {
-        return `Rp ${totalTagihan.toLocaleString()}`;
+        return "Tidak";
       }
     };
+
+    const calculateTagihan = (item) => {
+      const hari = item.jmlHari;
+
+      const kamarPrice = getNamaKamar(item).harga;
+
+      let totalTagihan = 0
+
+      const isBreakfast = item.breakfast == "1" ? true : false;
+
+      if (isBreakfast) {
+        totalTagihan = (kamarPrice * hari) + (80000 * hari)
+      } else {
+        totalTagihan = kamarPrice * hari;
+      }
+
+      if (hari > 3) {
+        totalTagihan = totalTagihan - (totalTagihan * 0.1)
+        return `${currencyRupiah(totalTagihan)} (Diskon 10%)`
+      }
+
+      return currencyRupiah(totalTagihan);
+    }
 
     // get data from database
 
     $.ajax({
-      url: "/backend/form.php",
       type: "GET",
-      success: function(result) {
-        let data = result;
-        tablePemesanan = result;
-        let table = $("table tbody");
-        if (data.length > 0) {
-          data.forEach((item) => {
-            table.append(`
+      url: "/backend/kamar.php",
+      success: function(response) {
+        dataKamar = response;
+        getDataForm();
+      }
+    });
+
+    const getDataForm = () => {
+      $.ajax({
+        url: "/backend/form.php",
+        type: "GET",
+        success: function(result) {
+          let data = result;
+          tablePemesanan = result;
+          let table = $("table tbody");
+          if (data.length > 0) {
+            data.forEach((item) => {
+              table.append(`
                     <tr>
                         <td>${item?.nama}</td>
-                        <td>${item?.phone}</td>
-                        <td>${item?.email}</td>
-                        <td>${item?.jumlah_org} Orang</td>
-                        <td>${changeDatetoLocale(item?.tgl_berangkat)}</td>
-                        <td>${changeDatetoLocale(item?.tgl_pulang)}</td>
-                        <td>${paketPerjalanan(item)}</td>
-                        <td>${pricePackage(item).string}</td>
-                        <td>${calculateTotalItem(item)}</td>
+                        <td>${item?.identitas}</td>
+                        <td>${jenisKelamin(item)}</td>
+                        <td>${getNamaKamar(item)?.namaKamar}</td>
+                        <td>${currencyRupiah(getNamaKamar(item)?.harga)}</td>
+                        <td>${changeDatetoLocale(item?.tglpesan)}</td>
+                        <td>${item.jmlHari}</td>
+                        <td>${isBreakfast(item)}</td>
+                        <td>${calculateTagihan(item)}</td>
                         <td>
                           <button class="btn btn-warning" onclick="editData(${
                             item.id
@@ -259,17 +290,18 @@ ob_start();
                         </td>
                     </tr>
                 `);
-          });
-        } else {
-          table.append(`
+            });
+          } else {
+            table.append(`
                 <tr>
                     <td colspan="10" class="text-center">Data tidak ditemukan</td>
                 </tr>
             `);
 
+          }
         }
-      }
-    });
+      });
+    }
   });
 
   // function delete data from database
@@ -312,47 +344,23 @@ ob_start();
     let data = tablePemesanan.find((item) => item.id == id);
     formDataSelected = data;
     $(".formPemesanan input[name=nama]").val(data.nama);
-    $(".formPemesanan input[name=phone]").val(data.phone);
-    $(".formPemesanan input[name=email]").val(data.email);
-    $(".formPemesanan input[name=jumlah_org]").val(data.jumlah_org);
-    $(".formPemesanan input[name=tgl_berangkat]").val(data.tgl_berangkat);
-    $(".formPemesanan input[name=tgl_pulang]").val(data.tgl_pulang);
-    $(".formPemesanan input[type=checkbox]").prop("checked", false);
-    if (data.paket_inap == "1") {
-      $(".formPemesanan input[value=1000000]").prop("checked", true);
-    }
-    if (data.paket_transport == "1") {
-      $(".formPemesanan input[value=1200000]").prop("checked", true);
-    }
-    if (data.paket_makan == "1") {
-      $(".formPemesanan input[value=500000]").prop("checked", true);
-    }
-
-    $(".formPemesanan input[name=tgl_pulang]").attr(
-      "min",
-      data.tgl_berangkat
-    );
-    $(".formPemesanan input[name=tgl_pulang]").prop("disabled", false);
-
-    let checkboxes = document.querySelectorAll(
-      ".formPemesanan input[type='checkbox']"
-    );
-
-    checkboxes.forEach((item) => {
-      let total = 0;
-      checkboxes.forEach((item) => {
-        if (item.checked) {
-          total += parseInt(item.value);
-        }
-      });
-
-      totalHrgPerjalanan = total;
-
-      $(".hargaPaketPerjalanan").val(`Rp ${total.toLocaleString()}`);
+    $(".formPemesanan input[name=identitas]").val(data.identitas);
+    $(".formPemesanan input[name=kelamin][value=" + data.kelamin + "]").prop("checked", true);
+    // option selected kamar
+    $(".formPemesanan select[name=kamar]").empty();
+    dataKamar.forEach((item) => {
+      $(".formPemesanan select[name=kamar]").append(`
+            <option value="${item.id}">${item.nama}</option>
+        `);
     });
+    $(".formPemesanan select[name=kamar]").val(data.kamar);
+    $(".formPemesanan .priceKamar").val(currencyRupiah(dataKamar.find((item) => item.id == data.kamar).harga));
+    $(".formPemesanan input[name=jmlHari]").val(data.jmlHari);
+    $(".formPemesanan input[name=tglpesan]").val(data.tglpesan);
+    $(".formPemesanan input[name=breakfast]").prop("checked", data.breakfast == "1" ? true : false);
+    $(".formPemesanan label[for=breakFastCheck]").text(data.breakfast == "1" ? "Ya" : "Tidak");
 
     kalkulasiTagihan();
-
     // show modal
     $("#exampleModal").modal("show");
   };
@@ -373,6 +381,18 @@ ob_start();
         Swal.fire("Peringatan", "Data yang diisi tidak boleh kosong", "warning");
         return;
       }
+    }
+
+    // check nomor identitas is 16 digit
+    if ($("input[name='identitas']").val().length != 16) {
+      Swal.fire("Peringatan", "Nomor identitas harus 16 digit", "warning");
+      return;
+    }
+
+    // check jmlHari is number
+    if (isNaN($("input[name='jmlHari']").val())) {
+      Swal.fire("Peringatan", "Jumlah hari harus angka", "warning");
+      return;
     }
 
     Swal.fire({
@@ -403,9 +423,8 @@ ob_start();
     });
 
     formData["id"] = formDataSelected.id;
-    formData["paket_inap"] = $(".formPemesanan input[type='checkbox']")[0].checked;
-    formData["paket_transport"] = $(".formPemesanan input[type='checkbox']")[1].checked;
-    formData["paket_makan"] = $(".formPemesanan input[type='checkbox']")[2].checked;
+    formData["harga"] = dataKamar.find((item) => item.id == formData.kamar).harga;
+
 
     console.log(formData);
 

@@ -1,24 +1,34 @@
-# Pelatihan Junior Web Developer Pariwisata
+**Repository Name: Tourism Management System**
 
-Pelatihan ini adalah proyek sederhana tentang pariwisata menggunakan PHP dan JavaScript.
+**Description:**
+This repository contains the source code for a Tourism Management System, which facilitates the management of tourism-related data, including destinations, bookings, and user authentication. The system comprises several folders and files, each serving a specific purpose as outlined below:
 
-## Instalasi
+1. **assets**: This folder contains CSS and JavaScript files utilized throughout the system's pages to ensure consistent styling and functionality.
 
-Berikut adalah langkah-langkah untuk menginstal proyek ini:
+2. **backend**: This folder encompasses files responsible for connecting the system to the database. It includes:
+   - **assets**: A subfolder containing assets such as images uploaded by administrators.
+   - **controller**: A subfolder housing code responsible for interacting with the database, managing data retrieval, insertion, and deletion.
+   - **Routes File**: This non-folder file contains routes used to access data within the system.
 
-1. Ekstrak file ZIP proyek ke dalam direktori yang diinginkan.
-2. Buka manajer basis data (misalnya phpMyAdmin).
-3. Buat database baru dengan nama yang diinginkan (misalnya `pariwisata_db`).
-4. Impor skrip SQL yang ada di direktori `database/db.sql` ke dalam database yang baru dibuat.
-5. Konfigurasikan koneksi basis data pada file PHP di direktori `backend/koneksi.php` sesuai dengan detail koneksi database Anda.
+3. **database**: This folder stores SQL files necessary for setting up the system's database schema and initial data.
 
-## Penggunaan
+4. **page**: This folder comprises various page files, organized into subfolders based on user roles and functionality:
+   - **admin**: Contains pages accessible to administrators for managing destinations, bookings, and other administrative tasks.
+   - **auth**: Contains pages for user authentication, including login and registration functionalities.
+   - **components**: Houses reusable components used across different pages for efficiency and consistency.
+   - **customer**: Contains pages accessible to customers for browsing destinations, making bookings, and viewing their bookings.
 
-Setelah mengikuti langkah-langkah instalasi di atas, Anda dapat menjalankan proyek ini dengan membuka aplikasi web di browser Anda.
+5. **index.php**: This file serves as the entry point for the system, automatically opening upon initial access.
 
-## Login
+**Usage:**
+1. Clone the repository to your local machine.
+2. Set up the database using the SQL files provided in the 'database' folder.
+3. Configure the backend files to connect to your database server.
+4. Host the files on a web server capable of running PHP scripts.
+5. Access the system through the index.php file to begin managing tourism data, authenticate users, and perform administrative tasks.
 
-Ada 2 Hak Akses yaitu admin dan customer
-1. Username dan Password admin yaitu username: admin, password: admin
-2. Username dan Password customer yaitu username: customer, password: customer 
-3. Customer dapat meregistrasikan diri di register, jika belum memiliki akun
+**Author:**
+Dhimas Eka Prasetya
+
+**Contact:**
+Email : dimaseka83@gmail.com

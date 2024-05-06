@@ -9,7 +9,7 @@ class Database
     private $serverName = "localhost";
     private $username   = "root";
     private $password   = "";
-    private $database   = "db_wisata";
+    private $database   = "db_hotel";
 
     // public is accessible from anywhere
     public $con = null;

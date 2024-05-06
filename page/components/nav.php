@@ -4,7 +4,7 @@
             Additionally, it includes the necessary JavaScript file for Bootstrap functionality. -->
 <nav class="navbar navbar-expand-lg shadow">
     <div class="container-fluid">
-        <a href="/jwd" class="navbar-brand">Wisata Banyuwangi</a>
+        <a href="/" class="navbar-brand">Hotel ABC</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -39,7 +39,7 @@
                             <a class="nav-link" href="/page/admin/pesanan.php">Daftar Pesanan</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/page/admin/wisata.php">Daftar Pariwisata</a>
+                            <a class="nav-link" href="/page/admin/kamar.php">Daftar Kamar</a>
                         </li>
                     </ul>
                     <a class="nav-link" href="/backend/controller/logout.php">

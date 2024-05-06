@@ -50,18 +50,17 @@ class formController {
 
             $id = isset($post['id']) ? $post['id'] : null;
             $nama = $post['nama'];
-            $email = $post['email'];
-            $phone = $post['phone'];
-            $jumlah_org = $post['jumlah_org'];
-            $tgl_berangkat = $post['tgl_berangkat'];
-            $tgl_pulang = $post['tgl_pulang'];
-            $paket_inap = $post['paket_inap'] ? 1 : 0;
-            $paket_transport = $post['paket_transport'] ? 1 : 0;
-            $paket_makan = $post['paket_makan'] ? 1 : 0;
+            $identitas = $post['identitas'];
+            $kelamin = $post['kelamin'];
+            $kamar = $post['kamar'];
+            $harga = $post['harga'];
+            $tglpesan = $post['tglpesan'];
+            $jmlHari = $post['jmlHari'];
+            $breakfast = isset($post['breakfast']) ? 1 : 0;
             if (isset($post['id'])) {
-                $sql = "UPDATE tb_pemesanan SET nama='$nama', email='$email', phone='$phone', jumlah_org='$jumlah_org', tgl_berangkat='$tgl_berangkat', tgl_pulang='$tgl_pulang', paket_inap='$paket_inap', paket_transport='$paket_transport', paket_makan='$paket_makan' WHERE id='$id'";
+                $sql = "UPDATE tb_pemesanan SET nama='$nama', identitas='$identitas', kelamin='$kelamin', kamar='$kamar', harga='$harga', tglpesan='$tglpesan', jmlHari='$jmlHari', breakfast='$breakfast' WHERE id='$id'";
             } else {
-                $sql = "INSERT INTO tb_pemesanan (nama, email, phone, jumlah_org, tgl_berangkat, tgl_pulang, paket_inap, paket_transport, paket_makan) VALUES ('$nama', '$email', '$phone', '$jumlah_org', '$tgl_berangkat', '$tgl_pulang', '$paket_inap', '$paket_transport', '$paket_makan')";
+                $sql = "INSERT INTO tb_pemesanan (nama, identitas, kelamin, kamar, harga, tglpesan, jmlHari, breakfast) VALUES ('$nama', '$identitas', '$kelamin', '$kamar', '$harga', '$tglpesan', '$jmlHari', '$breakfast')";
             }
             $result = $this->con->query($sql);
             if ($result) {

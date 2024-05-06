@@ -7,43 +7,48 @@ ob_start();
 
 <div class="container mt-5">
     <div class="text-center">
-        <h1 class="display-6">Destinasi Pariwisata Banyuwangi</h1>
+        <h1 class="display-6">Daftar Kamar Hotel</h1>
     </div>
 </div>
 
-<div class="row my-5">
-    <div class="col-md-8 col-xs-12">
-        <div class="row mt-5 mx-5 dataPariwisataBanyuwangi"></div>
-    </div>
-    <div id="iframeContainer" class="col-md-4 mt-5 col-xs-12">
-        <iframe width="80%" height="25%" src="https://www.youtube.com/embed/h4jSA8i9UUA?si=8J6ZOsn0cGh7q5LE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        <iframe width="80%" height="25%" src="https://www.youtube.com/embed/xuhLZcnHN1E?si=-CLINNwMnkdifqIE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    </div>
-</div>
+<div class="row mt-5 mx-5 dataPariwisataBanyuwangi"></div>
 
+<div class="modal modalDetail" tabindex="-1" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
+    let allData = []
     //  fetches data from a backend endpoint asynchronously using AJAX, 
     // dynamically generates HTML content based on the fetched data, 
     // and updates a specific element on the webpage with the generated content.
     $(document).ready(function() {
         $.ajax({
             type: "GET",
-            url: "/backend/wisata.php",
+            url: "/backend/kamar.php",
             success: function(response) {
-                const data = response
+                allData = response
                 let html = ''
-                if (data.length > 0) {
-                    data.forEach(pariwisata => {
+                if (allData.length > 0) {
+                    allData.forEach(pariwisata => {
                         html += `
             <div class="col-md-4 d-flex align-items-stretch">
               <div class="card flex-grow-1 m-2">
                 <img src="/backend/assets/img/${pariwisata?.img}" class="card-img-top" alt="${pariwisata?.nama}" />
                 <div class="card-body">
                   <h5 class="card-title">${pariwisata?.nama}</h5>
-                  <a href="/jwd/page/customer/form.php" class="btn btn-success">Pesan Sekarang</a>
-                  <a href="${pariwisata?.link}" target="_blank" class="btn btn-primary">Lihat Detail</a>
+                  <p class="card-text">${currencyRupiah(pariwisata?.harga)}</p>
+                  <a href="/page/customer/form.php" class="btn btn-success">Pesan Sekarang</a>
+                  <a onclick="openDetail(${pariwisata.id})" class="btn btn-primary">Lihat Detail</a>
                 </div>
               </div>
             </div>
@@ -57,23 +62,21 @@ ob_start();
         });
     });
 
-    // Function to check if the device is a phone
-    function isPhone() {
-        return window.matchMedia("(max-width: 575.98px)").matches;
+    // This code defines a
+    // function named `openDetail` in JavaScript, which takes a parameter `data`.It searches
+    // for an object within the `allData`
+    // array whose `id`
+    // matches the provided `data`, utilizing the `findIndex`
+    // method.If a matching object is found, it logs the corresponding object to the console and populates a modal with details extracted from the found object, such as its `nama`(name) and a YouTube video embedded within an iframe sourced from the object 's `link` property. Finally, it displays the modal to the user using Bootstrap modal functionality.
+    const openDetail = (data) => {
+        const idx = allData.findIndex(x => x.id == data)
+        console.log(allData[idx])
+        $('.modalDetail .modal-title').text(allData[idx].nama)
+        $('.modalDetail .modal-body').html(`
+        <iframe width="100%" height="100%" src="${allData[idx]?.link}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        `)
+        $('.modalDetail').modal('show')
     }
-
-    // Function to add the class d-flex justify-content-center if it's a phone
-    function addFlexCenterClass() {
-        var iframeContainer = document.getElementById('iframeContainer');
-        if (isPhone()) {
-            iframeContainer.classList.add('d-flex', 'justify-content-center');
-        }
-    }
-
-    // Call the function when the page loads
-    window.onload = function() {
-        addFlexCenterClass();
-    };
 </script>
 
 <style>
@@ -85,10 +88,23 @@ ob_start();
         transition: transform 0.5s;
     }
 
+    .card-img-top {
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .modal-body {
+        height: 500px;
+    }
+
     /* change media query card for desktop */
     @media (min-width: 768px) {
         .card {
             width: 500px;
+        }
+
+        .card-img-top {
+            height: 300px;
         }
     }
 </style>
