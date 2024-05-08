@@ -6,9 +6,9 @@
 class Database
 {
     // private is only accessible within the class
-    private $serverName = "localhost";
-    private $username   = "root";
-    private $password   = "";
+    private $serverName = "db";
+    private $username   = "hotelpariwisata";
+    private $password   = "password";
     private $database   = "db_hotel";
 
     // public is accessible from anywhere
@@ -31,3 +31,4 @@ class Database
         return $this->con;
     }
 }
+
